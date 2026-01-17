@@ -1,3 +1,22 @@
+TO RUN:
+
+If you don't have yay yet:
+```
+cd home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
+```
+Then u can use yay to download raylib:
+```
+yay -S raylib
+``` 
+
+then go back to ur project folder and run this
+```
+make && make run
+```
+
+should just have a window which means u can now use raylib hooray
+
+
 STACK:
 1. Raylib (cross platform graphics): https://www.raylib.com/
 2. EnTT (Entity Component System): https://github.com/skypjack/entt
