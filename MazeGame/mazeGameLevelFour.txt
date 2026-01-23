@@ -1,0 +1,221 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int moveUp(number)
+{
+	return number -= 16;
+}
+
+int moveDown(number)
+{
+	return number += 16;
+}
+
+int moveLeft(number)
+{
+	return number -= 1;
+}
+
+int moveRight(number)
+{
+	return number += 1;
+}
+
+int main(void) {
+
+	int playerPosition = 113;
+	int enemyPosition = 35;
+	int goal = 31;
+	int graphicInt = 0;
+	int playerDecision;
+	int key = 72;
+	int blade = 1;
+	int random;
+
+	int maze[128] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,1,5,4,1,0,1,1,1,1,1,1,0,0,0,0,0,1,4,5,1,0,0,0,5,4,1,1,1,0,1,1,1,1,1,2,1,1,1,1,4,5,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,3,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+
+
+
+		while (playerPosition != goal) {
+
+			for (int i = 0; i < 30; i++) {
+				printf("\n");
+			}
+			
+			if (blade == 1) {
+				maze[39] = 0;
+				maze[40] = 4;
+				maze[55] = 4;
+				maze[56] = 0;
+
+				maze[61] = 5;
+				maze[62] = 0;
+				maze[77] = 0;
+				maze[78] = 5;
+			} else {
+				blade = 0;
+				maze[39] = 5;
+				maze[40] = 0;
+				maze[55] = 0;
+				maze[56] = 5;
+
+				maze[61] = 0;
+				maze[62] = 4;
+				maze[77] = 4;
+				maze[78] = 0;
+			}
+
+			blade += 1;
+
+
+			random = rand() % 4;
+
+
+			if (random == 0) {
+				enemyPosition = moveUp(enemyPosition);
+				if (maze[enemyPosition] == 1) {
+					enemyPosition += 16;
+				}
+			}
+
+			if (random == 1) {
+				enemyPosition = moveDown(enemyPosition);
+				if (maze[enemyPosition] == 1 || enemyPosition == 66) {
+					enemyPosition -= 16;
+				}
+			}
+
+			if (random == 2) {
+				enemyPosition = moveLeft(enemyPosition);
+				if (maze[enemyPosition] == 1) {
+					enemyPosition++;
+				}
+			}
+
+			if (random == 3) {
+				enemyPosition = moveRight(enemyPosition);
+				if (maze[enemyPosition] == 1 || enemyPosition == 22) {
+					enemyPosition--;
+				}
+			}
+
+
+			if (maze[playerPosition] == 4 || maze[playerPosition] == 5 || enemyPosition == playerPosition) {
+				playerPosition = 113;
+				maze[72] = 2;
+				maze[104] = 3;
+			}
+
+			graphicInt = 0;
+			while (graphicInt < 127) {
+				for (int i = 0; i < 16; i++) {
+					if (graphicInt == playerPosition) {
+						printf("*");
+					} else if (graphicInt == enemyPosition) {
+						printf("%%");
+					} else if (maze[graphicInt] == 2) {
+						printf(",");
+					} else if (maze[graphicInt] == 3) {
+						printf("|");
+					} else if (maze[graphicInt] == 4) {
+						printf("/");
+					} else if (maze[graphicInt] == 5) {
+						printf("\\");
+					} else if (maze[graphicInt] == 0) {
+						printf(" ");
+					} else {
+						printf("#");
+					}
+					graphicInt++;
+				}
+
+				printf("\n");
+
+			}
+
+			printf("1 Up 2 Down 3 Left 4 Right \n");
+			scanf("%d", &playerDecision);
+
+
+			if (playerDecision == 1) {
+				playerPosition = moveUp(playerPosition);
+				if (playerPosition < 0 || playerPosition > 127 || maze[playerPosition] == 1 && 3) {
+					playerPosition += 16;
+				}
+			}
+
+			if (playerDecision == 2) {
+				playerPosition = moveDown(playerPosition);
+				if (playerPosition < 0 || playerPosition > 127 || maze[playerPosition] == 1 && 3) {
+					playerPosition -= 16;
+				}
+			}
+
+			if (playerDecision == 3) {
+				playerPosition = moveLeft(playerPosition);
+				if (playerPosition < 0 || playerPosition > 127 || maze[playerPosition] == 1 && 3) {
+					playerPosition++;
+				}
+			}
+
+			if (playerDecision == 4) {
+				playerPosition = moveRight(playerPosition);
+				if (playerPosition < 0 || playerPosition > 127 || maze[playerPosition] == 1 || maze[playerPosition] == 3) {
+					playerPosition--;
+				}
+			}
+
+			if (playerPosition == key) {
+				maze[72] = 0;
+				maze[104] = 0;
+			}
+
+		}
+
+	printf("you win!");
+
+	return 0;
+}
+
+
+/*
+
+
+################
+#       ##      
+#  %  #\/# #####
+#     #/\#   \/#
+## #####,####/\#
+#   ########## #
+# #     |      #
+#*##############
+
+1111111111111111
+1000000011000000
+1000001541011111
+1000001451000541
+1101111121111451
+1000111111111101
+1010000030000001
+1011111111111111
+
+
+
+
+16 * 8 80 48 128
+
+16 < % < 22
+32 < % < 38
+48 < % < 54
+################
+#       ##      
+#  %  #\/# #####
+#     #/\#   \/#
+## #####,####/\#
+#   ########## #
+# #     |      #
+#*##############
+
+*/
+
+
