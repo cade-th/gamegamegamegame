@@ -1,15 +1,10 @@
 TO RUN:
 
-If you don't have yay yet:
+Install raylib
 ```
-cd home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
-```
-Then u can use yay to download raylib:
-```
-yay -S raylib
+pacman -S raylib
 ``` 
-
-then go back to ur project folder and run this
+then do
 ```
 make && make run
 ```
